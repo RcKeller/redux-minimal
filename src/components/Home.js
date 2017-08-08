@@ -7,7 +7,7 @@ export default class Home extends React.Component {
   render() {
     return (
       <div className="page-home">
-        TEST2fdsdf
+        TEST3
         <UserList/>
       </div>
     );
