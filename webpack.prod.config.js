@@ -5,7 +5,7 @@ module.exports = require('./webpack.config.js');    // inherit from the main con
 // disable the hot reload
 module.exports.entry = [
   'babel-polyfill',
-  __dirname + '/' + module.exports.app_root + '/index.js'
+  __dirname + '/src/index.js'
 ];
 
 // production env
