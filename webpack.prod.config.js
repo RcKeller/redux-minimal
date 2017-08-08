@@ -5,7 +5,7 @@ module.exports = require('./webpack.config.js');    // inherit from the main con
 // disable the hot reload
 module.exports.entry = [
   'babel-polyfill',
-  __dirname + '/' + module.exports.app_root + '/index.js'
+  __dirname + '/src/index.js'
 ];
 
 // production env
@@ -21,9 +21,12 @@ module.exports.plugins.push(
 module.exports.plugins.push(
   new webpack.optimize.UglifyJsPlugin({
     comments: false,
+
     compressor: {
       warnings: false
-    }
+    },
+
+    sourceMap: true
   })
 );
 
