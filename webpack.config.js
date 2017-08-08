@@ -2,7 +2,7 @@
 // http://webpack.github.io/docs/webpack-dev-server.html
 var path = require('path');
 var CleanWebpackPlugin = require('clean-webpack-plugin');
-
+var ENV = process.env.NODE_ENV === 'production' || 'development'
 module.exports = {
   entry: [
     // http://gaearon.github.io/react-hot-loader/getstarted/
