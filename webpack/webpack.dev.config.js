@@ -6,7 +6,7 @@ var config = require('./webpack.config.js');    // inherit from the main config 
 // disable the hot reload
 config.entry = [
   'babel-polyfill',
-  __dirname + '/src/index.js'
+  process.cwd() + '/src/index.js'
 ];
 
 // export css to a separate file

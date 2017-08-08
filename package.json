@@ -1,13 +1,13 @@
 {
-  "name": "redux-minimal",
+  "name": "rapid-react-redux",
   "version": "1.0.0",
-  "description": "Start building complex react-redux apps today, with this minimalist easy to understand starter kit (boilerplate)",
+  "description": "Dead-simple boilerplate for beginners to learn flux architecture, compete in hackathons, and build MVPs for startups.",
   "keywords": [
     "react",
     "redux",
-    "minimal",
-    "starter kit",
-    "boilerplate"
+    "hot-reloading",
+    "boilerplate",
+    "es6"
   ],
   "main": "index.js",
   "homepage": "http://redux-minimal.js.org/",
@@ -18,8 +18,8 @@
   "scripts": {
     "start": "webpack-dev-server --inline --hot --history-api-fallback --host localhost --port 8080",
     "start-test": "webpack-dev-server --config ./webpack/webpack.config.js --inline --hot --history-api-fallback --host localhost --port 8080",
-    "build-dev": "webpack --config webpack.dev.config.js",
-    "build-prod": "webpack -p --config webpack.prod.config.js",
+    "build-dev": "webpack --config ./webpack/webpack.dev.config.js",
+    "build-prod": "webpack -p --config ./webpack/webpack.prod.config.js",
     "test": "mocha --recursive --compilers js:babel-register --require babel-polyfill --require ignore-styles",
     "test-watch": "npm test -- --watch"
   },

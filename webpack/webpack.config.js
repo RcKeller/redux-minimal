@@ -9,10 +9,10 @@ module.exports = {
     'webpack-dev-server/client?http://localhost:8080',
     'webpack/hot/only-dev-server',
     'babel-polyfill',
-    __dirname + '/src/index.js',
+    process.cwd() + '/src/index.js',
   ],
   output: {
-    path: __dirname + '/public/js',
+    path: process.cwd() + '/public/js',
     publicPath: 'js/',
     filename: 'bundle.js',
   },
@@ -49,11 +49,11 @@ module.exports = {
     ],
   },
   devServer: {
-    contentBase: __dirname + '/public',
+    contentBase: process.cwd() + '/public',
   },
   plugins: [
     new CleanWebpackPlugin(['css/main.css', 'js/bundle.js'], {
-      root: __dirname + '/public',
+      root: process.cwd() + '/public',
       verbose: true,
       dry: false, // true for simulation
     }),
