@@ -1,15 +1,14 @@
-import React from "react";
-import UserList from "./common/UserList";
+import React from 'react'
 
 // Home page component
 export default class Home extends React.Component {
   // render
-  render() {
+  render () {
     return (
-      <div className="page-home">
-        TEST3
-        <UserList/>
+      <div className='page-home'>
+        <h4>Hello world!</h4>
+        <p>test</p>
       </div>
-    );
+    )
   }
 }
