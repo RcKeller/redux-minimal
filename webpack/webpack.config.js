@@ -1,7 +1,7 @@
 // http://webpack.github.io/docs/configuration.html
 // http://webpack.github.io/docs/webpack-dev-server.html
-var path = require('path');
-var CleanWebpackPlugin = require('clean-webpack-plugin');
+var path = require('path')
+var CleanWebpackPlugin = require('clean-webpack-plugin')
 const ENV = process.env.NODE_ENV === 'production' || 'development'
 module.exports = {
   entry: [
@@ -9,12 +9,12 @@ module.exports = {
     'webpack-dev-server/client?http://localhost:8080',
     'webpack/hot/only-dev-server',
     'babel-polyfill',
-    process.cwd() + '/src/index.js',
+    process.cwd() + '/src/index.js'
   ],
   output: {
     path: process.cwd() + '/public/js',
     publicPath: 'js/',
-    filename: 'bundle.js',
+    filename: 'bundle.js'
   },
   module: {
     rules: [
@@ -25,7 +25,7 @@ module.exports = {
         }, {
           loader: 'babel-loader'
         }],
-        exclude: /node_modules/,
+        exclude: /node_modules/
       },
       {
         // https://github.com/jtangelder/sass-loader
@@ -36,7 +36,7 @@ module.exports = {
           loader: 'css-loader'
         }, {
           loader: 'sass-loader'
-        }],
+        }]
       },
       {
         test: /\.css$/,
@@ -44,18 +44,18 @@ module.exports = {
           loader: 'style-loader'
         }, {
           loader: 'css-loader'
-        }],
+        }]
       }
-    ],
+    ]
   },
   devServer: {
-    contentBase: process.cwd() + '/public',
+    contentBase: process.cwd() + '/public'
   },
   plugins: [
     new CleanWebpackPlugin(['css/main.css', 'js/bundle.js'], {
       root: process.cwd() + '/public',
       verbose: true,
-      dry: false, // true for simulation
-    }),
-  ],
-};
+      dry: false // true for simulation
+    })
+  ]
+}

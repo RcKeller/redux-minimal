@@ -1,7 +1,10 @@
 import React from 'react'
+
+//  Core styles
 import './main.scss'
 
-export default class App extends React.Component {
+//  Top-Level UI (Navigation, wrappers, etc)
+class UI extends React.Component {
   render () {
     return (
       <div className='container'>
@@ -10,3 +13,4 @@ export default class App extends React.Component {
     )
   }
 }
+export default UI
