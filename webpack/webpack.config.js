@@ -3,39 +3,68 @@
 var path = require('path')
 var CleanWebpackPlugin = require('clean-webpack-plugin')
 const ENV = process.env.NODE_ENV === 'production' || 'development'
+
+const CURRENT_WORKING_DIR = process.cwd()
+
+const PATHS = {
+  app: path.resolve(CURRENT_WORKING_DIR, 'src'),
+  entry: path.resolve(CURRENT_WORKING_DIR, 'src', 'index.js'),
+  public: path.resolve(CURRENT_WORKING_DIR, 'public'),
+  bundle: path.resolve(CURRENT_WORKING_DIR, 'public', 'js'),
+  modules: path.resolve(CURRENT_WORKING_DIR, 'node_modules')
+  // antd: path.resolve(CURRENT_WORKING_DIR, 'node_modules/antd')
+}
+
+
 module.exports = {
   entry: [
     // http://gaearon.github.io/react-hot-loader/getstarted/
     'webpack-dev-server/client?http://localhost:8080',
     'webpack/hot/only-dev-server',
     'babel-polyfill',
-    process.cwd() + '/src/index.js'
+    PATHS.entry
   ],
   output: {
-    path: process.cwd() + '/public/js',
+    path: PATHS.bundle,
     publicPath: 'js/',
     filename: 'bundle.js'
   },
   module: {
     rules: [{
         test: /\.js$/,
-        use: ['react-hot-loader', 'babel-loader'],
+        use: [
+          { loader: 'react-hot-loader' },
+          { loader: 'babel-loader' }
+        ],
         exclude: /node_modules/
       }, {
         test: /\.scss$/,
-        use: ['style-loader', 'css-loader', 'sass-loader'],
-        // include: [/node_modules/]
+        use: [
+          { loader: 'style-loader' },
+          { loader: 'css-loader' },
+          {
+            loader: 'sass-loader',
+            // options: {
+            //     sourceMap: true,
+            //     includePaths: [
+            //         path.resolve(process.cwd(), 'node_modules'),
+            //     ]
+            // }
+          }
+        ],
+        include: [PATHS.app, PATHS.modules]
       }, {
         test: /\.css$/,
-        use: ['style-loader', 'css-loader']
+        use: [
+          { loader: 'style-loader' },
+          { loader: 'css-loader' }
+        ]
       }]
   },
-  devServer: {
-    contentBase: process.cwd() + '/public'
-  },
+  devServer: { contentBase: PATHS.public },
   plugins: [
     new CleanWebpackPlugin(['css/main.css', 'js/bundle.js'], {
-      root: process.cwd() + '/public',
+      root: PATHS.public,
       verbose: true,
       dry: false // true for simulation
     })
