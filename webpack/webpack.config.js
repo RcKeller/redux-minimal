@@ -17,36 +17,18 @@ module.exports = {
     filename: 'bundle.js'
   },
   module: {
-    rules: [
-      {
+    rules: [{
         test: /\.js$/,
-        use: [{
-          loader: 'react-hot-loader'
-        }, {
-          loader: 'babel-loader'
-        }],
+        use: ['react-hot-loader', 'babel-loader'],
         exclude: /node_modules/
-      },
-      {
-        // https://github.com/jtangelder/sass-loader
+      }, {
         test: /\.scss$/,
-        use: [{
-          loader: 'style-loader'
-        }, {
-          loader: 'css-loader'
-        }, {
-          loader: 'sass-loader'
-        }]
-      },
-      {
+        use: ['style-loader', 'css-loader', 'sass-loader'],
+        // include: [/node_modules/]
+      }, {
         test: /\.css$/,
-        use: [{
-          loader: 'style-loader'
-        }, {
-          loader: 'css-loader'
-        }]
-      }
-    ]
+        use: ['style-loader', 'css-loader']
+      }]
   },
   devServer: {
     contentBase: process.cwd() + '/public'
