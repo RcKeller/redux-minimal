@@ -1,8 +1,8 @@
 import React from 'react'
 import { Router, Route, IndexRoute } from 'react-router'
-import { history } from './store.js'
+import { history } from './flux/store'
 
-import App from './views/index.js'
+import App from './views'
 import Home from './views/Home/Home'
 import NotFound from './views/NotFound/NotFound'
 
