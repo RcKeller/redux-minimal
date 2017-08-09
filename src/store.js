@@ -1,10 +1,10 @@
 import { createStore, applyMiddleware, compose } from 'redux'
 import thunk from 'redux-thunk'
-import { createLogger } from 'redux-logger'
+import freeze from 'redux-freeze'
 import { browserHistory } from 'react-router'
 import { syncHistoryWithStore, routerMiddleware } from 'react-router-redux'
 import { responsiveStoreEnhancer } from 'redux-responsive'
-import freeze from 'redux-freeze'
+import { createLogger } from 'redux-logger'
 import { reducers } from './reducers/index'
 
 // add the middlewares
@@ -23,7 +23,7 @@ let middleware = applyMiddleware(...middlewares)
 
 // add the redux dev tools
 if (process.env.NODE_ENV !== 'production' && window.devToolsExtension) {
-  // middleware = compose(middleware, window.devToolsExtension())
+  middleware = compose(middleware, window.devToolsExtension())
 }
 
 // create the store
