@@ -7,28 +7,26 @@ import { responsiveStoreEnhancer } from 'redux-responsive'
 import { createLogger } from 'redux-logger'
 import { reducers } from './reducers/index'
 
-// add the middlewares
+//  Core middleware
 let middlewares = [
   thunk,
   routerMiddleware(browserHistory)
 ]
-// add the freeze dev middleware
+//  Dev-only middlewares
 if (process.env.NODE_ENV !== 'production') {
   middlewares.push(freeze)
   middlewares.push(createLogger())
 }
-
-// apply the middleware
+//  Apply
 let middleware = applyMiddleware(...middlewares)
 
-// add the redux dev tools
+//  Devtools
 if (process.env.NODE_ENV !== 'production' && window.devToolsExtension) {
   middleware = compose(middleware, window.devToolsExtension())
 }
 
-// create the store
-const store = createStore(reducers, middleware)
+//  Create the store, enhanced with responsive reducers (not available as middleware)
+const store = createStore(reducers, compose(responsiveStoreEnhancer, middleware))
 const history = syncHistoryWithStore(browserHistory, store)
 
-// export
 export { store, history }
