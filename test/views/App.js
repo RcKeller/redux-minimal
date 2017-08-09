@@ -1,14 +1,13 @@
 import React from 'react'
 import { shallow } from 'enzyme'
 import assert from 'assert'
-import { App } from '../../src_users/components/App'
+import UI from '../../src/views'
 
 // unit tests for the App component
-describe('App component', () => {
+describe('UI component', () => {
   describe('render()', () => {
     it('should render the component', () => {
-      const props = {dispatch: () => {}, users: []}
-      const wrapper = shallow(<App {...props} />)
+      const wrapper = shallow(<UI />)
       assert.equal(wrapper.length, 1)
     })
   })
