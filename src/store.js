@@ -5,7 +5,7 @@ import { browserHistory } from 'react-router'
 import { syncHistoryWithStore, routerMiddleware } from 'react-router-redux'
 import { responsiveStoreEnhancer } from 'redux-responsive'
 import { createLogger } from 'redux-logger'
-import { reducers } from './reducers/index'
+import { reducers } from './reducers.js'
 
 //  Core middleware
 let middlewares = [
