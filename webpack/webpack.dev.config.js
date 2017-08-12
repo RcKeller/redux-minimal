@@ -4,10 +4,7 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin')
 
 var config = require('./webpack.config.js')    // inherit from the main config file
 // disable the hot reload
-config.entry = [
-  'babel-polyfill',
-  process.cwd() + '/src/index.js'
-]
+config.entry = [process.cwd() + '/src/index.js']
 
 // export css to a separate file
 // config.module.loaders[1] = {

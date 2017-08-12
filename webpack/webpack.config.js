@@ -1,93 +1,39 @@
 // http://webpack.github.io/docs/configuration.html
 // http://webpack.github.io/docs/webpack-dev-server.html
+var webpack = require('webpack')
 var path = require('path')
 var CleanWebpackPlugin = require('clean-webpack-plugin')
+var ExtractTextPlugin = require('extract-text-webpack-plugin')
 
 const ENV = process.env.NODE_ENV
-console.warn()
-const CURRENT_WORKING_DIR = process.cwd()
+const CWD = process.cwd()
 const PATHS = {
-  app: path.resolve(CURRENT_WORKING_DIR, 'src'),
-  entry: path.resolve(CURRENT_WORKING_DIR, 'src', 'index.js'),
-  public: path.resolve(CURRENT_WORKING_DIR, 'public'),
-  bundle: path.resolve(CURRENT_WORKING_DIR, 'public', 'js'),
-  modules: path.resolve(CURRENT_WORKING_DIR, 'node_modules')
-  // antd: path.resolve(CURRENT_WORKING_DIR, 'node_modules/antd')
+  app: path.resolve(CWD, 'src'),
+  entry: path.resolve(CWD, 'src', 'index.js'),
+  public: path.resolve(CWD, 'public'),
+  bundle: path.resolve(CWD, 'public', 'js'),
+  modules: path.resolve(CWD, 'node_modules')
 }
 
-module.exports = (env = {}) => {
-  const core = {
-    entry: [
-      // http://gaearon.github.io/react-hot-loader/getstarted/
-      'webpack-dev-server/client?http://localhost:8080',
-      'webpack/hot/only-dev-server',
-      'babel-polyfill',
-      PATHS.entry
-    ],
-    output: {
-      path: PATHS.bundle,
-      publicPath: 'js/',
-      filename: 'bundle.js'
-    },
-    module: {
-      rules: [{
-          test: /\.js$/,
-          use: [
-            { loader: 'react-hot-loader' },
-            { loader: 'babel-loader' }
-          ],
-          exclude: /node_modules/
-        }, {
-          test: /\.scss$/,
-          use: [
-            { loader: 'style-loader' },
-            { loader: 'css-loader' },
-            {
-              loader: 'sass-loader',
-              // options: {
-              //     sourceMap: true,
-              //     includePaths: [
-              //         path.resolve(process.cwd(), 'node_modules'),
-              //     ]
-              // }
-            }
-          ],
-          include: [PATHS.app, PATHS.modules]
-        }, {
-          test: /\.css$/,
-          use: [
-            { loader: 'style-loader' },
-            { loader: 'css-loader' }
-          ]
-        }]
-    },
-    devServer: { contentBase: PATHS.public },
-    plugins: [
-      new CleanWebpackPlugin(['css/main.css', 'js/bundle.js'], {
-        root: PATHS.public,
-        verbose: true,
-        dry: false // true for simulation
-      })
-    ]
-  }
-  const prod = core
-  prod.entry =  [
-    'babel-polyfill',
-    process.cwd() + '/src/index.js'
-  ]
-
-
-  const config = ''
-  return config
-
+//  Babel configuration
+let babel = {
+  presets: ['es2015', 'react', 'stage-0'],
+  plugins: ['transform-decorators-legacy']
+}
+if (ENV !== 'production') {
+  babel.presets = ['react-hmre', ...babel.presets]
+  babel.plugins.push([
+    'transform-react-remove-prop-types',
+    'transform-react-constant-elements',
+    'transform-react-inline-elements'
+  ])
 }
 
-module.exports = {
+let config = {
   entry: [
     // http://gaearon.github.io/react-hot-loader/getstarted/
     'webpack-dev-server/client?http://localhost:8080',
     'webpack/hot/only-dev-server',
-    'babel-polyfill',
     PATHS.entry
   ],
   output: {
@@ -97,10 +43,16 @@ module.exports = {
   },
   module: {
     rules: [{
-        test: /\.js$/,
+        test: /\.js$|\.jsx$/,
         use: [
           { loader: 'react-hot-loader' },
-          { loader: 'babel-loader' }
+          {
+            loader: 'babel-loader',
+            options: {
+              presets: babel.presets,
+              plugins: babel.plugins
+            }
+          }
         ],
         exclude: /node_modules/
       }, {
@@ -112,9 +64,7 @@ module.exports = {
             loader: 'sass-loader',
             options: {
                 sourceMap: true,
-                includePaths: [
-                    path.resolve(process.cwd(), 'node_modules'),
-                ]
+                includePaths: [path.resolve(process.cwd(), 'node_modules')]
             }
           }
         ],
@@ -136,3 +86,32 @@ module.exports = {
     })
   ]
 }
+
+//  Add build process for production
+// disable the hot reload
+if (ENV === 'production') {
+  config.entry = [process.cwd() + '/src/index.js']
+
+  // production env
+  config.plugins.push([
+      new webpack.DefinePlugin({
+        'process.env': {
+          NODE_ENV: JSON.stringify('production')
+        }
+      }),
+      new webpack.optimize.UglifyJsPlugin({
+        comments: false,
+        compressor: {
+          warnings: false
+        }
+      }),
+      new ExtractTextPlugin('../css/main.css')
+  ])
+
+  // export css to a separate file
+  // config.module.loaders[1] = {
+  //   test: /\.scss$/,
+  //   loader: ExtractTextPlugin.extract('css!sass'),
+  // };
+}
+module.exports = config
