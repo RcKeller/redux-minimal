@@ -12,8 +12,7 @@ class UI extends React.Component {
   constructor (props) {
     super(props)
     const navItems = [
-      {
-        primaryText: 'Home',
+      { primaryText: 'Home',
         secondaryText: 'Main Page',
         leftIcon: <FontIcon>home</FontIcon>,
         component: Link,
@@ -28,13 +27,16 @@ class UI extends React.Component {
       { divider: true }
     ]
 
-    const links = [{ label: 'GitHub', url: 'https://github.com/RcKeller/', iconClassName: 'fa fa-github' }]
-
+    const links = [{
+      label: 'GitHub',
+      url: 'https://github.com/RcKeller/',
+      iconClassName: 'fa fa-github'
+    }]
     this.state = { navItems, links }
   }
   render (
     { children } = this.props,
-    { navItems, links } = this.state
+    { title, navItems, links } = this.state
   ) {
     return (
       <NavigationDrawer
@@ -47,7 +49,7 @@ class UI extends React.Component {
         toolbarTitle={
           <Link to='/' className='toolbar-title'>
             <img src='/img/logo.svg' alt='Site Logo' />
-            <h2>{'LocalTitle'}</h2>
+            <h2>{`Site Title`}</h2>
           </Link>
         }
         toolbarActions={
@@ -61,10 +63,10 @@ class UI extends React.Component {
           </div>
         }
       >
-        <div>
-          <div className='page'>{children}</div>
-          <footer>Red, <span>blue</span></footer>
-        </div>
+        <div>{children}</div>
+        <footer>
+          <h3><em>Built by hackers, for hackers. We are Open-Source</em></h3>
+        </footer>
       </NavigationDrawer>
     )
   }

@@ -48,14 +48,15 @@ header {
 
 //  Core app
 main {
+  //  Flexbox enables sticky footers, centering, etc
   display: flex;
-  min-height: 100%;
+  height: 100%;
   flex-direction: column;
-  flex: 1;
-  //  Page content
-  .page {
-    display: flex;
-    flex-direction: column;
+
+  //  Page content ("children" in index.js)
+  div {
+    // flex: 1; is sufficient, but not for IE
+    flex: 1 0 auto;
     min-height: 300px;
     //  Articles, use semantic-html in page components to apply responsive margins.
     article {
@@ -65,19 +66,21 @@ main {
       }
     }
   }
+
   //  Sticky Footer
   footer {
     display: flex;
-    flex-wrap: wrap;
+    //  Opinionated defaults
     justify-content: center;
     align-items: center;
     min-height: 64px;
     max-width: 100%;
     padding: 8px;
-    //  TODO: Remove test
-    color: red;
-    span {
-      color: blue;
+    background-color: #424242;
+    h3 {
+      margin: 0;
+      color: white;
     }
   }
+
 }
