@@ -17,6 +17,7 @@
   },
   "scripts": {
     "start": "webpack-dev-server --config ./webpack/webpack.config.js --inline --hot --history-api-fallback --host localhost --port 8080",
+    "build": "webpack -p --env.production --config ./webpack/webpack.config.js",
     "build-dev": "webpack --config ./webpack/webpack.dev.config.js",
     "build-prod": "webpack -p --config ./webpack/webpack.prod.config.js",
     "test": "mocha --recursive --compilers js:babel-register --require babel-polyfill --require ignore-styles",
