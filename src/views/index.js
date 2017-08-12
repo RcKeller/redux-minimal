@@ -1,4 +1,6 @@
 import React from 'react'
+import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
 
 import { Link } from 'react-router'
 
@@ -8,6 +10,7 @@ import FontIcon from 'react-md/lib/FontIcons'
 
 //  Top-Level UI (Navigation, wrappers, etc)
 import './main.scss'
+@connect(state => ({ screen: state.screen }))
 class UI extends React.Component {
   constructor (props) {
     super(props)
@@ -38,6 +41,7 @@ class UI extends React.Component {
     { children } = this.props,
     { title, navItems, links } = this.state
   ) {
+    console.warn(this.props.screen)
     return (
       <NavigationDrawer
         drawerTitle='Navigation'
