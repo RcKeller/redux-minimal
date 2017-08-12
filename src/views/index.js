@@ -5,6 +5,7 @@ import FontIcon from 'react-md/lib/FontIcons'
 
 import { Link } from 'react-router'
 
+const logo = '/img/logo.svg'
 //  Core styles
 // import 'font-awesome/scss/font-awesome.scss'
 import './main.scss'
@@ -22,11 +23,7 @@ class UI extends React.Component {
         desktopDrawerType={NavigationDrawer.DrawerTypes.CLIPPED}
         toolbarTitle={
           <Link to='/' className='toolbar-title'>
-            {/* <img
-              src="/logos/logo-64.png"
-              alt="Website Logo"
-              className="toolbar-avatar"
-            /> */}
+            <img src={logo} alt='Site Logo' className='toolbar-avatar' />
             <h2 className='toolbar-title-text'>
               {'LocalTitle'}
             </h2>
@@ -40,9 +37,7 @@ class UI extends React.Component {
           </div>
         }
         >
-        <div className='container'>
-          {children}
-        </div>
+        <div className='container'>{children}</div>
         <footer>Footer</footer>
       </NavigationDrawer>
     )
