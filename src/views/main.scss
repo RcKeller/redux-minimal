@@ -1,72 +1,83 @@
+// Font and icon CDNs (Roboto, Material Icons and Font-Awesome)
+@import url('https://fonts.googleapis.com/css?family=Roboto:400,500,700|Material+Icons');
+@import url('https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
 /*
 React-MD (mlaursen) Theme:
 https://react-md.mlaursen.com/customization/themes?tab=1
+Import core styles, override variables, and then include everything to reference said overrides.
 */
-@import url('https://fonts.googleapis.com/css?family=Roboto:400,500,700|Material+Icons');
-@import url('https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
 @import '~react-md/src/scss/react-md';
 $md-primary-color: $md-light-blue-500;
 $md-secondary-color: $md-deep-orange-a-200;
 @include react-md-everything;
 
-p {
-  color: red !important;
-  span {
-    color: blue !important;
-  }
+// Basic normalization, non-aggressive
+* {
+    box-sizing: border-box;
 }
-
-a:link {
-    color: $md-secondary-color;
-    text-decoration: none;
-}
-
-
-.navigation {
-  .main-content {
-      display: flex;
-      flex-direction: column;
-
-      .main-container {
-          display: flex;
-          min-height: 100%;
-          flex-direction: column;
-          flex: 1;
-
-          .main-content {
-              flex: 1;
-          }
-      }
-  }
-  .toolbar-actions {
+html {
     height: 100%;
-    display: flex;
-    flex: 1 1 auto;
-    justify-content: flex-end;
-    align-items: center;
+}
+body {
+    margin: 0;
+}
+//  Because why underline links? Affects react-router links as well.
+a:link {
+  color: $md-secondary-color;
+  text-decoration: none;
+}
 
-    .userlinks-container {
-      @media (max-width: 640px - 1) {
-        display: none;
-      }
+//  Header
+header {
+  .toolbar-title {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    img {
+      margin-left: 10px;
+      max-height: 94%;
+      max-width: 94%;
+    }
+    h2 {
+      margin: 0 0 0 10px !important;
+      color: inherit !important;
     }
   }
 }
 
-.toolbar-title {
+//  Core app
+main {
   display: flex;
-  justify-content: center;
-  align-content: center;
-  align-items: center;
-}
-
-.toolbar-title-text {
-  margin: 0 0 0 10px !important;
-  color: inherit !important;
-}
-
-.toolbar-avatar {
-  margin-left: 10px;
-  max-height: 94%;
-  max-width: 94%;
+  min-height: 100%;
+  flex-direction: column;
+  flex: 1;
+  //  Page content
+  .page {
+    display: flex;
+    flex-direction: column;
+    min-height: 300px;
+    //  Articles, use semantic-html in page components to apply responsive margins.
+    article {
+      margin: 16px 4px;
+      @media (min-width: 768px) {
+          margin: 32px 8px;
+      }
+    }
+  }
+  //  Sticky Footer
+  footer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    min-height: 64px;
+    max-width: 100%;
+    padding: 8px;
+    //  TODO: Remove test
+    color: red;
+    span {
+      color: blue;
+    }
+  }
 }
