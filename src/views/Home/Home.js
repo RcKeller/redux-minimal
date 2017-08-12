@@ -5,7 +5,10 @@ class Home extends React.Component {
     return (
       <div className='page-home'>
         <h4>Hello world!</h4>
-        <p>test</p>
+        <p>
+          test
+          <span>Test2</span>
+        </p>
       </div>
     )
   }
